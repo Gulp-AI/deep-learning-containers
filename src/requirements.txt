@@ -5,7 +5,7 @@ invoke
 wheel==0.44.0
 docker==4.2.0
 pyfiglet==0.8.post1
-reprint==0.5.2
+reprint==0.6.0
 ruamel.yaml==0.18.10
 black==23.3.0
 junit-xml==1.9
