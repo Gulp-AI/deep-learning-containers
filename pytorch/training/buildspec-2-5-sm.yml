@@ -5,7 +5,7 @@ framework: &FRAMEWORK pytorch
 version: &VERSION 2.5.1
 short_version: &SHORT_VERSION "2.5"
 arch_type: x86
-autopatch_build: "True"
+autopatch_build: "False"
 
 repository_info:
   training_repository: &TRAINING_REPOSITORY
@@ -44,7 +44,7 @@ images:
     image_size_baseline: 6200
     device_type: &DEVICE_TYPE cpu
     python_version: &DOCKER_PYTHON_VERSION py3
-    tag_python_version: &TAG_PYTHON_VERSION py311
+    tag_python_version: &TAG_PYTHON_VERSION py310
     os_version: &OS_VERSION ubuntu22.04
     tag: !join [ *VERSION, "-", *DEVICE_TYPE, "-", *TAG_PYTHON_VERSION, "-", *OS_VERSION, "-sagemaker" ]
     latest_release_tag: !join [ *VERSION, "-", *DEVICE_TYPE, "-", *TAG_PYTHON_VERSION, "-", *OS_VERSION, "-sagemaker" ]
@@ -59,7 +59,7 @@ images:
     image_size_baseline: 21500
     device_type: &DEVICE_TYPE gpu
     python_version: &DOCKER_PYTHON_VERSION py3
-    tag_python_version: &TAG_PYTHON_VERSION py311
+    tag_python_version: &TAG_PYTHON_VERSION py310
     cuda_version: &CUDA_VERSION cu124
     os_version: &OS_VERSION ubuntu22.04
     tag: !join [ *VERSION, "-", *DEVICE_TYPE, "-", *TAG_PYTHON_VERSION, "-", *CUDA_VERSION, "-", *OS_VERSION, "-sagemaker" ]

@@ -1,3 +1,5 @@
+UNKNOWN.egg-info/
+*.json
 __pycache__
 logs
 venv
