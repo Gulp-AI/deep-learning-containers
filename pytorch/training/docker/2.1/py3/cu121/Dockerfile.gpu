@@ -2,7 +2,7 @@ ARG PYTHON=python3
 ARG PYTHON_VERSION=3.10.12
 ARG PYTHON_SHORT_VERSION=3.10
 ARG MAMBA_VERSION=23.3.1-1
-ARG PYTORCH_VERSION=2.1.0
+ARG PYTORCH_VERSION=2.5.1
 ARG CONDA_CHANNEL=https://aws-ml-conda.s3.us-west-2.amazonaws.com
 # SageMaker Profiler Binary
 ARG SMP_URL=https://smppy.s3.amazonaws.com/pytorch/cu121/smprof-0.3.334-cp310-cp310-linux_x86_64.whl
