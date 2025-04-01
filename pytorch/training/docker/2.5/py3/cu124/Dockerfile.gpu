@@ -1,7 +1,6 @@
 ARG PYTHON=python3
 ARG PYTHON_VERSION=3.10.16
 ARG PYTHON_SHORT_VERSION=3.10
-ARG PYTORCH_VERSION=2.5.1
 
 ARG MINIFORGE3_VERSION=24.9.0-0
 ARG CUDA_VERSION=12.4.1
@@ -14,11 +13,11 @@ ARG GDRCOPY_VERSION=2.4.2
 ARG TE_VERSION=1.11
 ARG FLASH_ATTN_VERSION=2.7.4.post1
 
-# PyTorch Binaries
-ARG TORCH_URL=https://framework-binaries.s3.us-west-2.amazonaws.com/pytorch/v2.5.1/x86/cu124/torch-2.5.1%2Bcu124-cp311-cp311-linux_x86_64.whl
-ARG TORCHVISION_URL=https://framework-binaries.s3.us-west-2.amazonaws.com/pytorch/v2.5.1/x86/cu124/torchvision-0.20.1%2Bcu124-cp311-cp311-linux_x86_64.whl
-ARG TORCHAUDIO_URL=https://framework-binaries.s3.us-west-2.amazonaws.com/pytorch/v2.5.1/x86/cu124/torchaudio-2.5.1%2Bcu124-cp311-cp311-linux_x86_64.whl
-ARG TORCHTEXT_URL=https://framework-binaries.s3.us-west-2.amazonaws.com/pytorch/v2.4.0/x86/cu124/torchtext-0.18.0%2Bcu124-cp311-cp311-linux_x86_64.whl
+# PyTorch Versions
+ARG TORCH_VERSION=2.5.1
+ARG TORCHVISION_VERSION=0.20.1
+ARG TORCHAUDIO_VERSION=2.5.1
+ARG TORCHTEXT_VERSION=0.18.0
 
 FROM nvidia/cuda:12.4.1-base-ubuntu22.04 AS base_image
 
@@ -72,7 +71,7 @@ ENV PATH="${CUDA_HOME}/bin:${PATH}"
 ENV EFA_PATH="/opt/amazon/efa"
 ENV OPEN_MPI_PATH="/opt/amazon/openmpi"
 
-# Python won’t try to write .pyc or .pyo files on the import of source modules
+# Python won't try to write .pyc or .pyo files on the import of source modules
 # Force stdin, stdout and stderr to be totally unbuffered. Good for logging
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -291,19 +290,19 @@ ARG NCCL_VERSION
 ARG GDRCOPY_VERSION
 ARG TE_VERSION
 ARG FLASH_ATTN_VERSION
-ARG TORCH_URL
-ARG TORCHVISION_URL
-ARG TORCHAUDIO_URL
-ARG TORCHTEXT_URL
+ARG TORCH_VERSION
+ARG TORCHVISION_VERSION
+ARG TORCHAUDIO_VERSION
+ARG TORCHTEXT_VERSION
 
 WORKDIR /
 
 # Install PyTorch
 RUN pip install --no-cache-dir -U \
-    ${TORCH_URL} \
-    ${TORCHVISION_URL} \
-    ${TORCHAUDIO_URL} \
-    ${TORCHTEXT_URL} \
+    torch==${TORCH_VERSION} \
+    torchvision==${TORCHVISION_VERSION} \
+    torchaudio==${TORCHAUDIO_VERSION} \
+    torchtext==${TORCHTEXT_VERSION} \
     torchtnt \
     triton \
     s3torchconnector \
@@ -387,10 +386,10 @@ ARG NCCL_VERSION
 ARG GDRCOPY_VERSION
 ARG TE_VERSION
 ARG FLASH_ATTN_VERSION
-ARG TORCH_URL
-ARG TORCHVISION_URL
-ARG TORCHAUDIO_URL
-ARG TORCHTEXT_URL
+ARG TORCH_VERSION
+ARG TORCHVISION_VERSION
+ARG TORCHAUDIO_VERSION
+ARG TORCHTEXT_VERSION
 
 # SageMaker Profiler Binary
 ARG SMP_URL=https://smppy.s3.amazonaws.com/pytorch/cu124/smprof-0.3.341-cp311-cp311-linux_x86_64.whl
@@ -408,10 +407,10 @@ RUN SMDATAPARALLEL_PT=1 pip install --no-cache-dir ${SMD_DATA_PARALLEL_URL}
 
 # Install PyTorch
 RUN pip install --no-cache-dir -U \
-    ${TORCH_URL} \
-    ${TORCHVISION_URL} \
-    ${TORCHAUDIO_URL} \
-    ${TORCHTEXT_URL} \
+    torch==${TORCH_VERSION} \
+    torchvision==${TORCHVISION_VERSION} \
+    torchaudio==${TORCHAUDIO_VERSION} \
+    torchtext==${TORCHTEXT_VERSION} \
     torchtnt \
     "triton<=3.1.0" \
     s3torchconnector \
